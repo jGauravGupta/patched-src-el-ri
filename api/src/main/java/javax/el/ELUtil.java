@@ -226,7 +226,10 @@ class ELUtil {
             int paramCount = params == null ? 0 : params.length;
             if (paramCount == 0) {
                 for (Class ParameterType : method.getParameterTypes()) {
-                    if (ParameterType.getName().equals("javax.faces.event.AjaxBehaviorEvent")) {
+                    String parameterTypeName = parameterType.getName();
+                    if (parameterTypeName.matches("javax.faces.event.*")
+                            || parameterTypeName.matches("org.primefaces.event.*")
+                            || parameterTypeName.matches("org.primefaces.extensions.event.*")) {
                         return method.invoke(base, (Object[]) params);
                     }
                 }
